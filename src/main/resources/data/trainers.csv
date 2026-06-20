@@ -1,0 +1,3 @@
+userId,firstName,lastName,username,password,isActive,specialization
+10,Bobur,Toshmatov,Bobur.Toshmatov,trn1234567,true,CARDIO
+11,Nodira,Rahimova,Nodira.Rahimova,trn9876543,true,STRENGTH
