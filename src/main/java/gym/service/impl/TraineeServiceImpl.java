@@ -1,6 +1,7 @@
 package gym.service.impl;
 
 import gym.dao.TraineeDao;
+import gym.dao.TrainerDao;
 import gym.domain.Trainee;
 import gym.service.TraineeService;
 import gym.utility.PasswordGenerator;
@@ -10,16 +11,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class TraineeServiceImpl implements TraineeService {
     private static final Logger log = LoggerFactory.getLogger(TraineeServiceImpl.class);
     private TraineeDao traineeDao;
+    private TrainerDao trainerDao;
     private UsernameGenerator usernameGenerator;
     private PasswordGenerator passwordGenerator;
 
     @Autowired
     public void setTraineeDao(TraineeDao traineeDao) {
         this.traineeDao = traineeDao;
+    }
+
+    @Autowired
+    public void setTrainerDao(TrainerDao trainerDao) {
+        this.trainerDao = trainerDao;
     }
 
     @Autowired
@@ -35,7 +45,10 @@ public class TraineeServiceImpl implements TraineeService {
     @Override
     public Trainee createTrainee(Trainee trainee) {
         log.info("Creating trainee: {} {}", trainee.getFirstName(), trainee.getLastName());
-        String username = usernameGenerator.generateUsername(trainee.getFirstName(), trainee.getLastName());
+
+        Set<String> existingUsernames = collectAllUsernames();
+        String username = usernameGenerator.generateUsername(
+                trainee.getFirstName(), trainee.getLastName(), existingUsernames);
         String password = passwordGenerator.generatePassword();
 
         trainee.setUsername(username);
@@ -63,5 +76,12 @@ public class TraineeServiceImpl implements TraineeService {
     public void deleteTrainee(Long id) {
         log.info("Deleting trainee with id={}", id);
         traineeDao.deleteTraineeById(id);
+    }
+
+    private Set<String> collectAllUsernames() {
+        Set<String> usernames = new HashSet<>();
+        traineeDao.findAll().forEach(t -> usernames.add(t.getUsername()));
+        trainerDao.findAll().forEach(t -> usernames.add(t.getUsername()));
+        return usernames;
     }
 }
