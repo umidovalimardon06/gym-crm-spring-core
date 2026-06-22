@@ -21,7 +21,7 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public Training saveTraining(Training training) {
+    public Training createTraining(Training training) {
         log.info("Creating training: {}", training.getTrainingName());
         Training saved = trainingDao.saveTraining(training);
         log.info("Created training with id={}", saved.getId());

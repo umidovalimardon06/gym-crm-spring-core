@@ -18,7 +18,8 @@ public class TraineeImpl implements TraineeDao {
 
     @Override
     public Trainee saveTrainee(Trainee trainee) {
-        return traineeStorage.put(trainee.getUserId(), trainee);
+        traineeStorage.put(trainee.getUserId(), trainee);
+        return trainee;
     }
 
     @Override
@@ -28,11 +29,11 @@ public class TraineeImpl implements TraineeDao {
 
     @Override
     public Trainee updateTrainee(Trainee trainee) {
-        if (traineeStorage.containsKey(trainee.getUserId())) {
-            traineeStorage.put(trainee.getUserId(), trainee);
-            return trainee;
+        if (!traineeStorage.containsKey(trainee.getUserId())) {
+            throw new IllegalArgumentException("Trainee not found: id=" + trainee.getUserId());
         }
-        return traineeStorage.get(trainee.getUserId());
+        traineeStorage.put(trainee.getUserId(), trainee);
+        return trainee;
     }
 
     @Override
