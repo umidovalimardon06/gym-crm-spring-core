@@ -5,6 +5,7 @@ import gym.domain.Trainee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -39,5 +40,10 @@ public class TraineeImpl implements TraineeDao {
     @Override
     public void deleteTraineeById(Long id) {
         traineeStorage.remove(id);
+    }
+
+    @Override
+    public List<Trainee> findAll() {
+        return List.copyOf(traineeStorage.values());
     }
 }
