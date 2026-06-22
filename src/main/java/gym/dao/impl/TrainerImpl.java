@@ -12,13 +12,14 @@ public class TrainerImpl implements TrainerDao {
     private Map<Long, Trainer> trainerStorage;
 
     @Autowired
-    public void setTraineeStorage(Map<Long, Trainer> trainerStorage) {
+    public void setTrainerStorage(Map<Long, Trainer> trainerStorage) {
         this.trainerStorage = trainerStorage;
     }
 
     @Override
     public Trainer saveTrainer(Trainer trainer) {
-        return trainerStorage.put(trainer.getUserId(), trainer);
+        trainerStorage.put(trainer.getUserId(), trainer);
+        return trainer;
     }
 
     @Override

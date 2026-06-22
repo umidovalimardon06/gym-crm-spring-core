@@ -19,37 +19,42 @@ public class StorageInitializer implements BeanPostProcessor {
     private static final String TRAINER_BEAN = "trainerStorage";
     private static final String TRAINING_BEAN = "trainingStorage";
 
-    private final DataFileParser parser;
-
-    private final Resource traineeData;
-    private final Resource trainerData;
-    private final Resource trainingData;
+    private DataFileParser parser;
+    private Resource traineeData;
+    private Resource trainerData;
+    private Resource trainingData;
 
     @Autowired
-    public StorageInitializer(DataFileParser parser,
-                              @Value("${storage.data.trainees}") Resource traineeData,
-                              @Value("${storage.data.trainers}") Resource trainerData,
-                              @Value("${storage.data.trainings}") Resource trainingData) {
+    public void setParser(DataFileParser parser) {
         this.parser = parser;
+    }
+
+    @Autowired
+    public void setTraineeData(@Value("${storage.data.trainees}") Resource traineeData) {
         this.traineeData = traineeData;
+    }
+
+    @Autowired
+    public void setTrainerData(@Value("${storage.data.trainers}") Resource trainerData) {
         this.trainerData = trainerData;
+    }
+
+    @Autowired
+    public void setTrainingData(@Value("${storage.data.trainings}") Resource trainingData) {
         this.trainingData = trainingData;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-
         switch (beanName) {
             case TRAINEE_BEAN  -> populateTrainees((Map<Long, Trainee>) bean);
             case TRAINER_BEAN  -> populateTrainers((Map<Long, Trainer>) bean);
             case TRAINING_BEAN -> populateTrainings((Map<Long, Training>) bean);
-            default            -> {}
+            default            -> { /* not a storage bean — ignore */ }
         }
-
         return bean;
     }
-
 
     private void populateTrainees(Map<Long, Trainee> storage) {
         parser.parseTrainees(traineeData)

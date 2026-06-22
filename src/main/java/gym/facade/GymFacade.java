@@ -28,7 +28,7 @@ public class GymFacade {
     }
 
     public Trainee getTraineeById(Long id) {
-        return traineeService.getTrainee(id);
+        return traineeService.getTraineeById(id);
     }
 
     public Trainee updateTrainee(Trainee trainee) {
@@ -43,7 +43,7 @@ public class GymFacade {
 
 
     public Trainer createTrainer(Trainer trainer) {
-        return trainerService.saveTrainer(trainer);
+        return trainerService.createTrainer(trainer);
     }
 
     public Trainer getTrainerById(Long id) {
@@ -57,7 +57,7 @@ public class GymFacade {
 
 
     public Training createTraining(Training training) {
-        return trainingService.saveTraining(training);
+        return trainingService.createTraining(training);
     }
 
     public Training getTrainingById(Long id) {

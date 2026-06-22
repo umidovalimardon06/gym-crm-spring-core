@@ -1,7 +1,6 @@
 package gym.dao.impl;
 
 import gym.dao.TrainingDao;
-import gym.domain.Trainee;
 import gym.domain.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,8 @@ public class TrainingImpl implements TrainingDao {
 
     @Override
     public Training saveTraining(Training training) {
-        return trainingStorage.put(training.getId(), training);
+        trainingStorage.put(training.getId(), training);
+        return training;
     }
 
     @Override

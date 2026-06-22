@@ -51,7 +51,7 @@ public class DataFileParser {
             boolean isFirstLine = true;
 
             while ((line = reader.readLine()) != null) {
-                if (isFirstLine) {           // skip header
+                if (isFirstLine) {
                     isFirstLine = false;
                     continue;
                 }

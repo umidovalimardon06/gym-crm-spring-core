@@ -4,7 +4,7 @@ import gym.domain.Trainee;
 
 public interface TraineeService {
     Trainee createTrainee(Trainee trainee);
-    Trainee getTrainee(Long id);
+    Trainee getTraineeById(Long id);
     Trainee updateTrainee(Trainee trainee);
     void deleteTrainee(Long id);
 }
