@@ -1,3 +1,5 @@
+package util;
+
 import gym.utility.UsernameGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

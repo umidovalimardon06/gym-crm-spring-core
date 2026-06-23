@@ -6,10 +6,6 @@ import java.util.Set;
 
 @Component
 public class UsernameGenerator {
-    public String generateUsername(String firstName,String lastname) {
-        return firstName + "." + lastname;
-    }
-
     public String generateUsername(String firstName, String lastName, Set<String> existing) {
         String base = firstName + "." + lastName;
 

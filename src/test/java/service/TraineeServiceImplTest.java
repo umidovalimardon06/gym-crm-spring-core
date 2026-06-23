@@ -1,3 +1,5 @@
+package service;
+
 import gym.dao.TraineeDao;
 import gym.dao.TrainerDao;
 import gym.domain.Trainee;
@@ -10,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class TraineeServiceImplTest {
+public class TraineeServiceImplTest {
     private TraineeServiceImpl service;
     private TraineeDao traineeDao;
     private TrainerDao trainerDao;

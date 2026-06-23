@@ -1,5 +1,6 @@
 package gym.service.impl;
 
+import gym.dao.TraineeDao;
 import gym.dao.TrainerDao;
 import gym.domain.Trainer;
 import gym.service.TrainerService;
@@ -19,7 +20,7 @@ public class TrainerServiceImpl implements TrainerService {
     private static final Logger log = LoggerFactory.getLogger(TrainerServiceImpl.class);
 
     private TrainerDao trainerDao;
-    private TrainerDao traineeDao;
+    private TraineeDao traineeDao;
     private UsernameGenerator usernameGenerator;
     private PasswordGenerator passwordGenerator;
 
@@ -29,7 +30,7 @@ public class TrainerServiceImpl implements TrainerService {
     }
 
     @Autowired
-    public void setTraineeDao(TrainerDao traineeDao) {
+    public void setTraineeDao(TraineeDao traineeDao) {
         this.traineeDao = traineeDao;
     }
 

@@ -1,3 +1,5 @@
+package facade;
+
 import gym.domain.Trainee;
 import gym.domain.Trainer;
 import gym.domain.Training;

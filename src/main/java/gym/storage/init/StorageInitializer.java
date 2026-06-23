@@ -3,6 +3,8 @@ package gym.storage.init;
 import gym.domain.Trainee;
 import gym.domain.Trainer;
 import gym.domain.Training;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,13 +12,16 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
 public class StorageInitializer implements BeanPostProcessor {
 
-    private static final String TRAINEE_BEAN = "traineeStorage";
-    private static final String TRAINER_BEAN = "trainerStorage";
+    private static final Logger log = LoggerFactory.getLogger(StorageInitializer.class);
+
+    private static final String TRAINEE_BEAN  = "traineeStorage";
+    private static final String TRAINER_BEAN  = "trainerStorage";
     private static final String TRAINING_BEAN = "trainingStorage";
 
     private DataFileParser parser;
@@ -51,23 +56,29 @@ public class StorageInitializer implements BeanPostProcessor {
             case TRAINEE_BEAN  -> populateTrainees((Map<Long, Trainee>) bean);
             case TRAINER_BEAN  -> populateTrainers((Map<Long, Trainer>) bean);
             case TRAINING_BEAN -> populateTrainings((Map<Long, Training>) bean);
-            default            -> { /* not a storage bean — ignore */ }
+            default            -> {}
         }
         return bean;
     }
 
     private void populateTrainees(Map<Long, Trainee> storage) {
-        parser.parseTrainees(traineeData)
-                .forEach(t -> storage.put(t.getUserId(), t));
+        log.info("Initializing trainee storage from {}", traineeData.getDescription());
+        List<Trainee> trainees = parser.parseTrainees(traineeData);
+        trainees.forEach(t -> storage.put(t.getUserId(), t));
+        log.info("Trainee storage initialized with {} records", trainees.size());
     }
 
     private void populateTrainers(Map<Long, Trainer> storage) {
-        parser.parseTrainers(trainerData)
-                .forEach(t -> storage.put(t.getUserId(), t));
+        log.info("Initializing trainer storage from {}", trainerData.getDescription());
+        List<Trainer> trainers = parser.parseTrainers(trainerData);
+        trainers.forEach(t -> storage.put(t.getUserId(), t));
+        log.info("Trainer storage initialized with {} records", trainers.size());
     }
 
     private void populateTrainings(Map<Long, Training> storage) {
-        parser.parseTrainings(trainingData)
-                .forEach(t -> storage.put(t.getId(), t));
+        log.info("Initializing training storage from {}", trainingData.getDescription());
+        List<Training> trainings = parser.parseTrainings(trainingData);
+        trainings.forEach(t -> storage.put(t.getId(), t));
+        log.info("Training storage initialized with {} records", trainings.size());
     }
 }
