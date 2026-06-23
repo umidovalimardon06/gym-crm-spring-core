@@ -9,6 +9,8 @@ import gym.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class GymFacade {
     private final TraineeService traineeService;
@@ -41,7 +43,6 @@ public class GymFacade {
 
 
 
-
     public Trainer createTrainer(Trainer trainer) {
         return trainerService.createTrainer(trainer);
     }
@@ -62,5 +63,9 @@ public class GymFacade {
 
     public Training getTrainingById(Long id) {
         return trainingService.getTrainingById(id);
+    }
+
+    public List<Training> getAllTraining() {
+        return trainingService.getAllTraining();
     }
 }

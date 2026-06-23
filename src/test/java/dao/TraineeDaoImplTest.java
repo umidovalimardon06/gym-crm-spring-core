@@ -1,3 +1,5 @@
+package dao;
+
 import gym.dao.impl.TraineeImpl;
 import gym.domain.Trainee;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +11,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TraineeImplTest {
+public class TraineeDaoImplTest {
 
     private TraineeImpl traineeDao;
     private Map<Long, Trainee> storage;

@@ -1,3 +1,5 @@
+package service;
+
 import gym.dao.TrainingDao;
 import gym.domain.Training;
 import gym.service.impl.TrainingServiceImpl;

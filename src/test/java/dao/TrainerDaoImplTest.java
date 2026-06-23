@@ -1,3 +1,5 @@
+package dao;
+
 import gym.dao.impl.TrainerImpl;
 import gym.domain.Trainer;
 import gym.domain.TrainingType;
@@ -10,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrainerServiceImplTest {
+class TrainerDaoImplTest {
 
     private TrainerImpl trainerDao;
     private Map<Long, Trainer> storage;

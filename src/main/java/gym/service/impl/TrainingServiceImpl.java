@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TrainingServiceImpl implements TrainingService {
 
@@ -32,5 +34,10 @@ public class TrainingServiceImpl implements TrainingService {
     public Training getTrainingById(Long id) {
         log.info("Fetching training with id={}", id);
         return trainingDao.getTrainingById(id);
+    }
+
+    @Override
+    public List<Training> getAllTraining() {
+        return List.copyOf(trainingDao.getAll());
     }
 }
